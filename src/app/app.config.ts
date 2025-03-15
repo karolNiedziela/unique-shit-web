@@ -103,7 +103,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
 export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
   const protectedResourceMap = new Map<string, Array<string>>();
 
-  protectedResourceMap.set(environment.apiUrl, environment.adb2c.scopeUrls);
+  // protectedResourceMap.set(environment.apiUrl, environment.adb2c.scopeUrls);
 
   return {
     interactionType: InteractionType.Redirect,

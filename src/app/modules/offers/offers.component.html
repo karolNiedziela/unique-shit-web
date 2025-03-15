@@ -1,0 +1,44 @@
+<form>
+  <app-select
+    label="Sort"
+    [options]="sortOptions"
+    (selectionChange)="onSortChange($event)"
+  >
+  </app-select>
+
+  <app-select
+    label="Product category"
+    [options]="productCategoryOptions"
+    (selectionChange)="onProductCategoryChange($event)"
+  >
+  </app-select>
+
+  <app-select
+    label="Manufacturer"
+    [options]="manufacturerOptions"
+    (selectionChange)="onManufacturerChanged($event)"
+  >
+  </app-select>
+
+  <app-select
+    label="Item condition"
+    [options]="itemConditionOptions"
+    (selectionChange)="onItemConditionChange($event)"
+  >
+  </app-select>
+
+  <app-select
+    label="Colour"
+    [options]="colourOptions"
+    (selectionChange)="onColourChange($event)"
+  >
+  </app-select>
+
+  <app-select
+    label="Size"
+    [options]="[]"
+    (selectionChange)="onSizeChange($event)"
+    [hidden]="true"
+  >
+  </app-select>
+</form>

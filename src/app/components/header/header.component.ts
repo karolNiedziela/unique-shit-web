@@ -4,8 +4,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { NgIf, TitleCasePipe } from '@angular/common';
-import { ThemeService } from '../../services/theme.service';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { ThemeService } from '../../core/services/theme.service';
+import { RouterLink } from '@angular/router';
 import { filter, Subject, takeUntil } from 'rxjs';
 import {
   MSAL_GUARD_CONFIG,
@@ -20,7 +20,6 @@ import {
   InteractionStatus,
   RedirectRequest,
 } from '@azure/msal-browser';
-import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-header',

@@ -3,6 +3,7 @@ import { MsalGuard } from '@azure/msal-angular';
 import { ProfileComponent } from './profile/profile.component';
 import { HomeComponent } from './home/home.component';
 import { WebapiComponent } from './webapi/webapi.component';
+import { OffersComponent } from './modules/offers/offers.component';
 
 export const routes: Routes = [
   {
@@ -18,5 +19,9 @@ export const routes: Routes = [
     path: 'webapi',
     component: WebapiComponent,
     canActivate: [MsalGuard],
+  },
+  {
+    path: 'offers',
+    component: OffersComponent,
   },
 ];

@@ -1,0 +1,11 @@
+<mat-form-field *ngIf="!hidden">
+  <mat-label>{{ label }}</mat-label>
+  <mat-select
+    [value]="selectedValue"
+    (selectionChange)="onSelectionChange($event)"
+  >
+    <mat-option *ngFor="let option of options" [value]="option.id">
+      {{ option.value }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
