@@ -4,7 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { NgIf, TitleCasePipe } from '@angular/common';
-import { ThemeService } from '../../core/services/theme.service';
+import { ThemeService } from '../../../core/services/theme.service';
 import { RouterLink } from '@angular/router';
 import { filter, Subject, takeUntil } from 'rxjs';
 import {
@@ -14,7 +14,6 @@ import {
   MsalService,
 } from '@azure/msal-angular';
 import {
-  AuthenticationResult,
   EventMessage,
   EventType,
   InteractionStatus,
