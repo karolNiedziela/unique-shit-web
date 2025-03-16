@@ -11,17 +11,19 @@ export type SelectOptionType = {
   selector: 'app-select',
   imports: [MatSelectModule, NgForOf, NgIf],
   templateUrl: './select.component.html',
-  styleUrls: ['./select.component.css'],
+  styleUrls: ['./select.component.scss'],
   standalone: true,
 })
 export class SelectComponent {
   @Input() label: string;
+  @Input() for: string;
   @Input() options: SelectOptionType[];
   @Input() selectedValue: string;
   @Input() hidden: boolean = false;
   @Output() selectionChange = new EventEmitter<string>();
 
   onSelectionChange(event: any): void {
-    this.selectionChange.emit(event.value);
+    const value = (event.target as HTMLSelectElement).value;
+    this.selectionChange.emit(value);
   }
 }

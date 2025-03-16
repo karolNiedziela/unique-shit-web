@@ -1,6 +1,7 @@
 <form>
   <app-select
     label="Sort"
+    for="sortFilter"
     [options]="sortOptions"
     (selectionChange)="onSortChange($event)"
   >
@@ -8,6 +9,7 @@
 
   <app-select
     label="Product category"
+    for="productCategoryFilter"
     [options]="productCategoryOptions"
     (selectionChange)="onProductCategoryChange($event)"
   >
@@ -15,6 +17,7 @@
 
   <app-select
     label="Manufacturer"
+    for="manufacturerFilter"
     [options]="manufacturerOptions"
     (selectionChange)="onManufacturerChanged($event)"
   >
@@ -22,6 +25,7 @@
 
   <app-select
     label="Item condition"
+    for="itemConditionFilter"
     [options]="itemConditionOptions"
     (selectionChange)="onItemConditionChange($event)"
   >
@@ -29,6 +33,7 @@
 
   <app-select
     label="Colour"
+    for="colourFilter"
     [options]="colourOptions"
     (selectionChange)="onColourChange($event)"
   >
@@ -38,7 +43,9 @@
     label="Size"
     [options]="[]"
     (selectionChange)="onSizeChange($event)"
-    [hidden]="true"
+    [hidden]="false"
   >
   </app-select>
+
+  <button mat-button>Basic</button>
 </form>

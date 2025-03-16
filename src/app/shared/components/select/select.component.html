@@ -9,3 +9,16 @@
     </mat-option>
   </mat-select>
 </mat-form-field>
+
+<div class="filter-group" *ngIf="!hidden">
+  <label [for]="for"> {{ label }}</label>
+  <select
+    [value]="selectedValue"
+    (change)="onSelectionChange($event)"
+    [id]="for"
+  >
+    <option *ngFor="let option of options" [value]="option.id">
+      {{ option.value }}
+    </option>
+  </select>
+</div>

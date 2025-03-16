@@ -17,6 +17,7 @@ import {
 } from './models/offer-filters';
 import { OfferService } from './services/offer.service';
 import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-offers',

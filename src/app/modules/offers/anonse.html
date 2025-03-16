@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anonse</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f8fafc;
+      margin: 0;
+      padding: 30px 20px;
+      color: #2d3748;
+    }
+    .header-title {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      padding: 20px;
+      border-radius: 16px;
+      text-align: center;
+      font-size: 2rem;
+      margin: 0 auto 30px;
+      max-width: 800px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    .filter-sort-container {
+      background: white;
+      padding: 20px 25px;
+      border-radius: 12px;
+      max-width: 800px;
+      margin: 0 auto 30px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    .filter-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1 1 200px;
+    }
+    .filter-group label {
+      font-weight: 500;
+      color: #4a5568;
+      min-width: 80px;
+      text-align: right;
+    }
+    .filter-group select {
+      flex: 1;
+      padding: 8px 15px;
+      border-radius: 8px;
+      border: 2px solid #e2e8f0;
+      font-size: 1rem;
+      background: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      max-width: 200px;
+    }
+    .filter-group select:hover {
+      border-color: #c3dafe;
+    }
+    .filter-group select:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+    .annonces-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .annonce-card {
+      background: white;
+      border-radius: 16px;
+      padding: 25px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      transition: all 0.3s ease;
+      border: 1px solid #e2e8f0;
+    }
+    .annonce-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+      border-color: #c3dafe;
+    }
+    .annonce-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 10px;
+      padding-bottom: 15px;
+      border-bottom: 2px solid #f7fafc;
+    }
+    .annonce-subject {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #2d3748;
+      margin: 15px 0;
+      line-height: 1.4;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      max-height: 3em;
+    }
+    .annonce-description {
+      color: #4a5568;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 2px solid #f7fafc;
+      overflow-wrap: break-word;
+      overflow-y: auto;
+      max-height: 150px;
+      padding-right: 5px;
+    }
+    .annonce-description::-webkit-scrollbar {
+      width: 6px;
+    }
+    .annonce-description::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 3px;
+    }
+    .annonce-description::-webkit-scrollbar-thumb {
+      background: #c1c1c1;
+      border-radius: 3px;
+    }
+    .annonce-description::-webkit-scrollbar-thumb:hover {
+      background: #a8a8a8;
+    }
+    .username {
+      position: relative;
+      font-weight: 600;
+      color: #667eea;
+      cursor: pointer;
+      transition: color 0.3s ease;
+      text-decoration: underline;
+    }
+    .username:hover {
+      color: #764ba2;
+    }
+    .tooltip {
+      visibility: hidden;
+      background: #2d3748;
+      color: white;
+      padding: 8px 15px;
+      border-radius: 8px;
+      position: absolute;
+      z-index: 10;
+      bottom: 110%;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      font-size: 0.9rem;
+      white-space: nowrap;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .username:hover .tooltip {
+      visibility: visible;
+      opacity: 1;
+    }
+    .annonce-model-info {
+      margin: 10px 0 15px;
+      display: flex;
+      gap: 8px;
+    }
+    .annonce-model {
+      font-size: 0.9rem;
+      color: #718096;
+      background: #f7fafc;
+      padding: 6px 12px;
+      border-radius: 20px;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      display: inline-block;
+    }
+    .no-offers {
+      text-align: center;
+      padding: 40px;
+      background: white;
+      border-radius: 16px;
+      max-width: 800px;
+      margin: 30px auto;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    }
+    .no-offers::before {
+      content: "😞";
+      font-size: 2rem;
+      display: block;
+      margin-bottom: 15px;
+    }
+    @media (max-width: 768px) {
+      .header-title {
+        font-size: 1.5rem;
+        padding: 15px;
+      }
+      .filter-sort-container {
+        flex-direction: column;
+      }
+      .filter-group {
+        flex: 1 1 auto;
+      }
+      .filter-group label {
+        text-align: left;
+        min-width: 70px;
+      }
+      .filter-group select {
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1 class="header-title">📋 Aktualne oferty zakupu</h1>
+
+  <div class="filter-sort-container">
+    <div class="filter-group">
+      <label for="sortSelect">Sortuj:</label>
+      <select id="sortSelect" name="sort">
+        <option value="newest">Najnowsze</option>
+        <option value="oldest">Najstarsze</option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label for="kategoriaFilter">Kategoria produktu:</label>
+      <select id="kategoriaFilter">
+        <option value="">Wszystkie</option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label for="producentFilter">Producent:</label>
+      <select id="producentFilter">
+        <option value="">Wszyscy</option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label for="modelFilter">Model:</label>
+      <select id="modelFilter">
+        <option value="">Wszystkie</option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label for="kolorFilter">Kolor:</label>
+      <select id="kolorFilter">
+        <option value="">Wszystkie</option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label for="rozmiarFilter">Rozmiar:</label>
+      <select id="rozmiarFilter">
+        <option value="">Wszystkie</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="annonces-container" id="annoncesContainer"></div>
+
+  <script>
+    async function fetchFilters() {
+      const producent = document.getElementById("producentFilter").value;
+      const model = document.getElementById("modelFilter").value;
+      const kategoria = document.getElementById("kategoriaFilter").value;
+      let url = "http://localhost:3001/filters";
+      const params = new URLSearchParams();
+      if (producent) params.append("producent", producent);
+      if (model) params.append("model", model);
+      if (kategoria) params.append("kategoria", kategoria);
+      if (params.toString()) url += "?" + params.toString();
+
+      try {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error("Błąd przy pobieraniu filtrów: " + response.status);
+        const data = await response.json();
+        populateSelect("kategoriaFilter", data.categories, true);
+        populateSelect("producentFilter", data.producers, true);
+        populateSelect("modelFilter", data.models, true);
+        populateSelect("kolorFilter", data.colors, true);
+        populateSelect("rozmiarFilter", data.sizes, true);
+      } catch (error) {
+        console.error("Błąd pobierania filtrów:", error);
+      }
+    }
+
+    function populateSelect(selectId, items, preserveSelection = false) {
+      const select = document.getElementById(selectId);
+      const current = preserveSelection ? select.value : "";
+      const defaultOption = select.querySelector("option");
+      
+      select.innerHTML = "";
+      if (defaultOption) select.appendChild(defaultOption);
+      
+      items.forEach(item => {
+        const option = document.createElement("option");
+
+        if (typeof item === "object" && item.id !== undefined && item.value !== undefined) {
+          option.value = item.id;
+          option.textContent = item.value;
+        } else {
+          option.value = item;
+          option.textContent = item;
+        }
+
+        select.appendChild(option);
+      });
+
+      if (preserveSelection && current) {
+        select.value = current;
+      }
+    }
+    
+    async function fetchAnonces() {
+      const sortValue = document.getElementById("sortSelect").value;
+      const producentValue = document.getElementById("producentFilter").value;
+      const modelValue = document.getElementById("modelFilter").value;
+      const kolorValue = document.getElementById("kolorFilter").value;
+      const rozmiarValue = document.getElementById("rozmiarFilter").value;
+      const kategoriaValue = document.getElementById("kategoriaFilter").value;
+
+      const queryParams = new URLSearchParams({
+        sort: sortValue,
+        producent: producentValue,
+        model: modelValue,
+        kolor: kolorValue,
+        rozmiar: rozmiarValue
+      });
+
+      if (kategoriaValue) {
+        queryParams.append("kategoria", kategoriaValue);
+      }
+
+      try {
+        const response = await fetch(`http://localhost:3001/annonces?${queryParams}`);
+        if (!response.ok) throw new Error("Błąd przy pobieraniu anonsów: " + response.status);
+        const data = await response.json();
+        const container = document.getElementById("annoncesContainer");
+        container.innerHTML = "";
+
+        if (data.length === 0) {
+          container.innerHTML = `<div class="no-offers">Brak dostępnych ofert</div>`;
+          return;
+        }
+
+        data.forEach(offer => {
+          const card = document.createElement("div");
+          card.classList.add("annonce-card");
+
+          const header = document.createElement("div");
+          header.classList.add("annonce-header");
+
+          const usernameElem = document.createElement("div");
+          usernameElem.classList.add("username");
+          usernameElem.textContent = offer.nazwa_uzytkownika;
+
+          const tooltip = document.createElement("span");
+          tooltip.classList.add("tooltip");
+          tooltip.innerHTML = `<strong>${offer.nazwa_miejscowosci || "Nieznana miejscowość"}</strong><br>Numer telefonu: ${offer.numer_telefonu || "brak danych"}`;
+          usernameElem.appendChild(tooltip);
+
+          header.appendChild(usernameElem);
+
+          const modelContainer = document.createElement("div");
+          modelContainer.classList.add("annonce-model-info");
+
+          const modelElem = document.createElement("span");
+          modelElem.classList.add("annonce-model");
+          modelElem.textContent = offer.nazwa_modelu;
+
+          const subjectElem = document.createElement("div");
+          subjectElem.classList.add("annonce-subject");
+          subjectElem.textContent = offer.temat;
+
+          const descriptionElem = document.createElement("div");
+          descriptionElem.classList.add("annonce-description");
+          descriptionElem.textContent = offer.tresc_oferty;
+
+          modelContainer.appendChild(modelElem);
+          card.appendChild(header);
+          card.appendChild(modelContainer);
+          card.appendChild(subjectElem);
+          card.appendChild(descriptionElem);
+
+          container.appendChild(card);
+        });
+      } catch (error) {
+        console.error("Błąd:", error);
+        alert("Wystąpił błąd przy pobieraniu anonsów!");
+      }
+    }
+
+    window.addEventListener("load", () => {
+      fetchFilters();
+      fetchAnonces();
+    });
+
+    document.getElementById("kategoriaFilter").addEventListener("change", () => {
+      fetchFilters();
+      fetchAnonces();
+    });
+
+    document.getElementById("producentFilter").addEventListener("change", () => {
+      fetchFilters();
+      fetchAnonces();
+    });
+
+    document.getElementById("modelFilter").addEventListener("change", () => {
+      fetchFilters();
+      fetchAnonces();
+    });
+
+    document.getElementById("sortSelect").addEventListener("change", fetchAnonces);
+    document.getElementById("kolorFilter").addEventListener("change", fetchAnonces);
+    document.getElementById("rozmiarFilter").addEventListener("change", fetchAnonces);
+  </script>
+</body>
+</html>

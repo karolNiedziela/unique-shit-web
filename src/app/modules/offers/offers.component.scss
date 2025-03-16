@@ -1,15 +1,7 @@
-form {
-  margin: 16px;
-}
-
-mat-grid-list {
-  width: 100% !important;
-}
-
-mat-grid-tile {
-  padding: 8px !important;
-}
-
 mat-form-field {
   width: 100%;
+}
+
+app-select {
+  padding: 0 5px;
 }
